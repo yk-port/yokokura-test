@@ -1,73 +1,96 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        yokokura-test
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+    <div class="steps">
+      <div class="step">
+        <StepLabel step="1" />
+        <StepCard :input="name" title="名前入力" />
+      </div>
+      <div class="step">
+        <StepLabel step="2" />
+        <StepCard :input="email" title="メールアドレス" />
+      </div>
+      <div class="step">
+        <StepLabel step="3" />
+        <StepCard :input="password" title="パスワード" />
       </div>
     </div>
+    <InputForm
+      v-if="currentStep === 1"
+      label="name"
+      title="名前入力"
+      :step="currentStep"
+      @handleNext="submitName"
+      @handleBack="currentStep--"
+    />
+    <InputForm
+      v-if="currentStep === 2"
+      label="email"
+      title="メールアドレス入力"
+      :step="currentStep"
+      @handleNext="submitEmail"
+      @handleBack="currentStep--"
+    />
+    <InputForm
+      v-if="currentStep === 3"
+      label="password"
+      title="パスワード入力"
+      :step="currentStep"
+      @handleNext="submitPassword"
+      @handleBack="currentStep--"
+    />
+    <SubmitBtn v-if="" btnLabel="Submit" />
   </div>
 </template>
 
 <script>
-export default {}
+import StepLabel from "@/components/stepLabel.vue";
+import StepCard from "@/components/stepCard.vue";
+import InputForm from "@/components/inputForm.vue";
+import SubmitBtn from "@/components/submitBtn.vue";
+
+export default {
+  components: {
+    StepLabel,
+    StepCard,
+    InputForm,
+    SubmitBtn
+  },
+  data() {
+    return {
+      currentStep: 1,
+      name: "",
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    submitName(inputText) {
+      this.name = inputText;
+      this.currentStep++;
+    },
+    submitEmail(inputText) {
+      this.email = inputText;
+      this.currentStep++;
+    },
+    submitPassword(inputText) {
+      this.password = inputText;
+      this.currentStep++;
+    }
+  }
+};
 </script>
 
-<style>
+<style lang="scss">
 .container {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.steps {
+  display: flex;
+  margin-bottom: 80px;
 }
 </style>
