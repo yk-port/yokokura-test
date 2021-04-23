@@ -6,7 +6,7 @@
 export default {
   props: {
     step: {
-      type: String,
+      type: Number,
       default: ""
     }
   }

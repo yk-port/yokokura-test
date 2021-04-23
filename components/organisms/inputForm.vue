@@ -4,7 +4,7 @@
       <label :for="label">{{ title }}</label>
     </div>
     <div class="form__input">
-      <input type="text" :id="label" v-model="inputText" />
+      <input :type="type" :id="label" v-model="inputText" />
     </div>
     <div class="form__btn">
       <button v-if="step !== 1" type="submit" @click="submitBack">
@@ -30,6 +30,10 @@ export default {
       default: ""
     },
     title: {
+      type: String,
+      default: ""
+    },
+    type: {
       type: String,
       default: ""
     },

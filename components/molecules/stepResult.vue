@@ -1,7 +1,7 @@
 <template>
-  <div class="card">
-    <p class="card__status">{{ title }}：{{ inputStatus }}</p>
-    <p class="card__result">{{ input }}</p>
+  <div class="result">
+    <p class="result__status">{{ title }}：{{ inputStatus }}</p>
+    <p class="result__text">{{ input }}</p>
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card {
+.result {
   height: 160px;
   width: 342px;
   border: 1px solid #3b8070;
@@ -35,9 +35,10 @@ export default {
     font-size: 1.4em;
     margin-bottom: 8px;
   }
-  &__result {
+  &__text {
     font-size: 1.6em;
     font-weight: bold;
+    word-wrap: break-word;
   }
 }
 </style>

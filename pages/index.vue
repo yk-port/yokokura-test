@@ -1,56 +1,51 @@
 <template>
   <div class="container">
     <div class="steps">
-      <div class="step">
-        <StepLabel step="1" />
-        <StepCard :input="name" title="名前入力" />
-      </div>
-      <div class="step">
-        <StepLabel step="2" />
-        <StepCard :input="email" title="メールアドレス" />
-      </div>
-      <div class="step">
-        <StepLabel step="3" />
-        <StepCard :input="password" title="パスワード" />
-      </div>
+      <StepCard
+        v-for="step in steps"
+        :key="step.id"
+        :step="step.id"
+        :input="step.input"
+        :title="step.title"
+      />
     </div>
     <InputForm
       v-if="currentStep === 1"
-      label="name"
+      label="steps[0].input"
       title="名前入力"
+      type="text"
       :step="currentStep"
       @handleNext="submitName"
       @handleBack="currentStep--"
     />
     <InputForm
       v-if="currentStep === 2"
-      label="email"
+      label="steps[1].input"
       title="メールアドレス入力"
+      type="email"
       :step="currentStep"
       @handleNext="submitEmail"
       @handleBack="currentStep--"
     />
     <InputForm
       v-if="currentStep === 3"
-      label="password"
+      label="steps[2].input"
       title="パスワード入力"
+      type="password"
       :step="currentStep"
       @handleNext="submitPassword"
       @handleBack="currentStep--"
     />
-    <SubmitBtn v-if="" btnLabel="Submit" />
   </div>
 </template>
 
 <script>
-import StepLabel from "@/components/stepLabel.vue";
-import StepCard from "@/components/stepCard.vue";
-import InputForm from "@/components/inputForm.vue";
+import StepCard from "@/components/organisms/stepCard.vue";
+import InputForm from "@/components/organisms/inputForm.vue";
 import SubmitBtn from "@/components/submitBtn.vue";
 
 export default {
   components: {
-    StepLabel,
     StepCard,
     InputForm,
     SubmitBtn
@@ -58,22 +53,24 @@ export default {
   data() {
     return {
       currentStep: 1,
-      name: "",
-      email: "",
-      password: ""
+      steps: [
+        { id: 1, input: "", title: "名前入力" },
+        { id: 2, input: "", title: "メール入力" },
+        { id: 3, input: "", title: "パスワード入力" }
+      ]
     };
   },
   methods: {
     submitName(inputText) {
-      this.name = inputText;
+      this.steps[0].input = inputText;
       this.currentStep++;
     },
     submitEmail(inputText) {
-      this.email = inputText;
+      this.steps[1].input = inputText;
       this.currentStep++;
     },
     submitPassword(inputText) {
-      this.password = inputText;
+      this.steps[2].input = inputText;
       this.currentStep++;
     }
   }
