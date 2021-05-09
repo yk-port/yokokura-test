@@ -7,11 +7,24 @@ export const state = () => ({
   ]
 });
 
-export const getters = {};
+export const getters = {
+  currentStep: state => state.currentStep,
+  steps: state => state.steps
+};
 
 export const mutations = {
-  increment(state) {
-    state.counter++;
+  submitName(state, inputText) {
+    console.log(inputText);
+    state.steps[0].input = inputText;
+    state.currentStep++;
+  },
+  submitEmail(state, inputText) {
+    state.steps[1].input = inputText;
+    state.currentStep++;
+  },
+  submitPassword(state, inputText) {
+    state.steps[2].input = inputText;
+    state.currentStep++;
   }
 };
 

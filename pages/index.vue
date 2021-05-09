@@ -15,7 +15,7 @@
       title="名前入力"
       type="text"
       :step="currentStep"
-      @handleNext="submitName"
+      @handleNext="submitName($event)"
       @handleBack="currentStep--"
     />
     <InputForm
@@ -24,7 +24,7 @@
       title="メールアドレス入力"
       type="email"
       :step="currentStep"
-      @handleNext="submitEmail"
+      @handleNext="submitEmail($event)"
       @handleBack="currentStep--"
     />
     <InputForm
@@ -33,7 +33,7 @@
       title="パスワード入力"
       type="password"
       :step="currentStep"
-      @handleNext="submitPassword"
+      @handleNext="submitPassword($event)"
       @handleBack="currentStep--"
     />
   </div>
@@ -43,6 +43,7 @@
 import StepCard from "@/components/organisms/stepCard.vue";
 import InputForm from "@/components/organisms/inputForm.vue";
 import SubmitBtn from "@/components/submitBtn.vue";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   components: {
@@ -51,26 +52,10 @@ export default {
     SubmitBtn
   },
   methods: {
-    submitName(inputText) {
-      this.steps[0].input = inputText;
-      this.currentStep++;
-    },
-    submitEmail(inputText) {
-      this.steps[1].input = inputText;
-      this.currentStep++;
-    },
-    submitPassword(inputText) {
-      this.steps[2].input = inputText;
-      this.currentStep++;
-    }
+    ...mapMutations(["submitName", "submitEmail", "submitPassword"])
   },
   computed: {
-    currentStep() {
-      return this.$store.state.currentStep;
-    },
-    steps() {
-      return this.$store.state.steps;
-    }
+    ...mapGetters(["currentStep", "steps"])
   }
 };
 </script>
