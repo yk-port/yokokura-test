@@ -50,16 +50,6 @@ export default {
     InputForm,
     SubmitBtn
   },
-  data() {
-    return {
-      currentStep: 1,
-      steps: [
-        { id: 1, input: "", title: "名前入力" },
-        { id: 2, input: "", title: "メール入力" },
-        { id: 3, input: "", title: "パスワード入力" }
-      ]
-    };
-  },
   methods: {
     submitName(inputText) {
       this.steps[0].input = inputText;
@@ -72,6 +62,14 @@ export default {
     submitPassword(inputText) {
       this.steps[2].input = inputText;
       this.currentStep++;
+    }
+  },
+  computed: {
+    currentStep() {
+      return this.$store.state.currentStep;
+    },
+    steps() {
+      return this.$store.state.steps;
     }
   }
 };
