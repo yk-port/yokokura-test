@@ -43,7 +43,7 @@
 import StepCard from "@/components/organisms/stepCard.vue";
 import InputForm from "@/components/organisms/inputForm.vue";
 import SubmitBtn from "@/components/submitBtn.vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -52,7 +52,7 @@ export default {
     SubmitBtn
   },
   methods: {
-    ...mapMutations(["submitName", "submitEmail", "submitPassword"])
+    ...mapActions(["submitName", "submitEmail", "submitPassword"])
   },
   computed: {
     ...mapGetters(["currentStep", "steps"])

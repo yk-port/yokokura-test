@@ -28,4 +28,14 @@ export const mutations = {
   }
 };
 
-export const actions = {};
+export const actions = {
+  submitName({ commit }, inputText) {
+    commit("submitName", inputText);
+  },
+  submitEmail({ commit }, inputText) {
+    commit("submitEmail", inputText);
+  },
+  submitPassword({ commit }, inputText) {
+    commit("submitPassword", inputText);
+  }
+};
