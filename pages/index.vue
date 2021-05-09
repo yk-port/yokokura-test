@@ -1,61 +1,29 @@
 <template>
   <div class="container">
     <div class="steps">
-      <StepCard
-        v-for="step in steps"
-        :key="step.id"
-        :step="step.id"
-        :input="step.input"
-        :title="step.title"
-      />
+      <StepCard v-for="step in steps" :key="step.id" :step="step" />
     </div>
-    <InputForm
-      v-if="currentStep === 1"
-      label="steps[0].input"
-      title="名前入力"
-      type="text"
-      :step="currentStep"
-      @handleNext="submitName($event)"
-      @handleBack="currentStep--"
-    />
-    <InputForm
-      v-if="currentStep === 2"
-      label="steps[1].input"
-      title="メールアドレス入力"
-      type="email"
-      :step="currentStep"
-      @handleNext="submitEmail($event)"
-      @handleBack="currentStep--"
-    />
-    <InputForm
-      v-if="currentStep === 3"
-      label="steps[2].input"
-      title="パスワード入力"
-      type="password"
-      :step="currentStep"
-      @handleNext="submitPassword($event)"
-      @handleBack="currentStep--"
-    />
+    <InputForm v-if="currentStep === 0" type="text" />
+    <InputForm v-if="currentStep === 1" type="email" />
+    <InputForm v-if="currentStep === 2" type="password" />
+    <ConfirmBtn v-if="currentStep === totalSteps" class="confirm-btn" />
   </div>
 </template>
 
 <script>
 import StepCard from "@/components/organisms/stepCard.vue";
 import InputForm from "@/components/organisms/inputForm.vue";
-import SubmitBtn from "@/components/submitBtn.vue";
-import { mapGetters, mapActions } from "vuex";
+import ConfirmBtn from "@/components/confirmBtn.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     StepCard,
     InputForm,
-    SubmitBtn
-  },
-  methods: {
-    ...mapActions(["submitName", "submitEmail", "submitPassword"])
+    ConfirmBtn
   },
   computed: {
-    ...mapGetters(["currentStep", "steps"])
+    ...mapGetters(["currentStep", "steps", "totalSteps"])
   }
 };
 </script>
@@ -72,5 +40,8 @@ export default {
 .steps {
   display: flex;
   margin-bottom: 80px;
+}
+.confirm-btn {
+  margin-top: 40px;
 }
 </style>

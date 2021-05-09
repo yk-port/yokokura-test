@@ -1,20 +1,19 @@
 <template>
   <div class="form">
     <div class="form__title">
-      <label :for="label">{{ title }}</label>
+      <label>{{ title }}</label>
     </div>
     <div class="form__input">
-      <input :type="type" :id="label" v-model="inputText" />
+      <input :type="type" :value="inputValue" @input="updateInputValue" />
     </div>
     <div class="form__btn">
-      <button v-if="step !== 1" type="submit" @click="submitBack">
+      <button v-if="currentStep !== 0" @click="back">
         Back
       </button>
       <button
-        v-if="step !== 3"
+        v-if="currentStep !== totalSteps"
         :disabled="disabled"
-        type="submit"
-        @click="submitNext"
+        @click="next"
       >
         Next
       </button>
@@ -23,43 +22,33 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   props: {
-    label: {
-      type: String,
-      default: ""
-    },
-    title: {
-      type: String,
-      default: ""
-    },
     type: {
       type: String,
       default: ""
-    },
-    step: {
-      type: Number,
-      default: ""
     }
   },
-  data() {
-    return {
-      inputText: ""
-    };
-  },
   methods: {
-    submitBack() {
-      this.$emit("handleBack");
-      this.inputText = "";
+    updateInputValue(e) {
+      this.$store.dispatch("updateInputValue", {
+        input: e.target.value,
+        currentStep: this.currentStep
+      });
     },
-    submitNext() {
-      this.$emit("handleNext", this.inputText);
-      this.inputText = "";
+    next() {
+      this.$store.dispatch("nextStep");
+    },
+    back() {
+      this.$store.dispatch("backStep");
     }
   },
   computed: {
+    ...mapGetters(["currentStep", "title", "inputValue", "totalSteps"]),
     disabled() {
-      return this.inputText ? false : true;
+      return this.inputValue ? false : true;
     }
   }
 };

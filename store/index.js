@@ -1,5 +1,5 @@
 export const state = () => ({
-  currentStep: 1,
+  currentStep: 0,
   steps: [
     { step: 1, input: "", title: "名前入力" },
     { step: 2, input: "", title: "メール入力" },
@@ -9,7 +9,14 @@ export const state = () => ({
 
 export const getters = {
   currentStep: state => state.currentStep,
-  steps: state => state.steps
+  steps: state => state.steps,
+  title: state => state.steps[state.currentStep].title,
+  inputValue: state => state.steps[state.currentStep].input,
+  totalSteps: state => state.steps.length - 1,
+  isFullInputed: state => {
+    const ele = state.steps.find(step => (step.input = ""));
+    return ele ? false : true;
+  }
 };
 
 export const mutations = {
@@ -25,6 +32,15 @@ export const mutations = {
   submitPassword(state, inputText) {
     state.steps[2].input = inputText;
     state.currentStep++;
+  },
+  updateInputValue(state, { inputText, currentStep }) {
+    state.steps[currentStep].input = inputText;
+  },
+  nextStep(state) {
+    state.currentStep++;
+  },
+  backStep(state) {
+    state.currentStep--;
   }
 };
 
@@ -37,5 +53,17 @@ export const actions = {
   },
   submitPassword({ commit }, inputText) {
     commit("submitPassword", inputText);
+  },
+  updateInputValue({ commit }, value) {
+    commit("updateInputValue", {
+      inputText: value.input,
+      currentStep: value.currentStep
+    });
+  },
+  nextStep({ commit }) {
+    commit("nextStep");
+  },
+  backStep({ commit }) {
+    commit("backStep");
   }
 };

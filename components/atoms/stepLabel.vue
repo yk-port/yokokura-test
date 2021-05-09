@@ -1,13 +1,13 @@
 <template>
-  <div class="step">STEP {{ step }}</div>
+  <div class="step">STEP {{ step.step }}</div>
 </template>
 
 <script>
 export default {
   props: {
     step: {
-      type: Number,
-      default: ""
+      type: Object,
+      default: () => {}
     }
   }
 };

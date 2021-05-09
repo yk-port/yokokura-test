@@ -1,25 +1,21 @@
 <template>
   <div class="result">
-    <p class="result__status">{{ title }}：{{ inputStatus }}</p>
-    <p class="result__text">{{ input }}</p>
+    <p class="result__status">{{ step.title }}：{{ inputStatus }}</p>
+    <p class="result__text">{{ step.input }}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    input: {
-      type: String,
-      default: ""
-    },
-    title: {
-      type: String,
-      default: ""
+    step: {
+      type: Object,
+      default: () => {}
     }
   },
   computed: {
     inputStatus() {
-      return this.input ? "入力済" : "未入力";
+      return this.step.input ? "入力済" : "未入力";
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <StepLabel :step="step" />
-    <StepResult :input="input" :title="title" />
+    <StepResult :step="step" />
   </div>
 </template>
 
@@ -16,21 +16,8 @@ export default {
   },
   props: {
     step: {
-      type: Number,
-      default: ""
-    },
-    input: {
-      type: String,
-      default: ""
-    },
-    title: {
-      type: String,
-      default: ""
-    }
-  },
-  computed: {
-    inputStatus() {
-      return this.input ? "入力済" : "未入力";
+      type: Object,
+      default: () => {}
     }
   }
 };
